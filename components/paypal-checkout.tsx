@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, useCallback } from "react"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Loader2, AlertCircle, RefreshCw, Wifi } from "lucide-react"
+import { Loader2, AlertCircle, RefreshCw, Wifi, ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useLanguage } from "@/lib/language-context"
 
@@ -29,6 +29,7 @@ interface PayPalCheckoutProps {
   }
   onSuccess: (details: any) => void
   onError?: (error: any) => void
+  onBack?: () => void
 }
 
 export function PayPalCheckout({
@@ -38,6 +39,7 @@ export function PayPalCheckout({
   metadata,
   onSuccess,
   onError,
+  onBack,
 }: PayPalCheckoutProps) {
   const { language } = useLanguage()
   const [sdkReady, setSdkReady] = useState(false)
@@ -269,7 +271,7 @@ export function PayPalCheckout({
             {language === "zh" ? "支付加载失败" : "Payment Loading Failed"}
           </div>
           <div className="text-sm">{error}</div>
-          <div className="flex gap-2 mt-3">
+          <div className="flex flex-wrap gap-2 mt-3">
             <Button
               variant="outline"
               size="sm"
@@ -279,6 +281,17 @@ export function PayPalCheckout({
               <RefreshCw className="w-4 h-4 mr-2" />
               {language === "zh" ? "重试加载" : "Retry"}
             </Button>
+            {onBack && (
+              <Button
+                variant="outline"
+                size="sm"
+                className="bg-transparent border-orange text-orange-600 hover:bg-orange/10"
+                onClick={onBack}
+              >
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                {language === "zh" ? "选择其他支付方式" : "Other Payment Methods"}
+              </Button>
+            )}
             <Button
               variant="outline"
               size="sm"

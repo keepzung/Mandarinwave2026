@@ -601,6 +601,7 @@ function PaymentContent() {
                         console.error("[v0] PayPal payment error:", error)
                         alert(language === "zh" ? "支付失败，请重试" : "Payment failed, please try again")
                       }}
+                      onBack={() => setShowCheckout(false)}
                     />
                   </CardContent>
                 </Card>
