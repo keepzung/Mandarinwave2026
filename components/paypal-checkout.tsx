@@ -4,9 +4,11 @@ import { useEffect, useRef, useState, useCallback } from "react"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Loader2, AlertCircle, RefreshCw, Wifi } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { useLanguage } from "@/lib/language-context"
 
 const CNY_TO_USD_RATE = 0.14
-const SDK_LOAD_TIMEOUT = 10000
+const SDK_LOAD_TIMEOUT = 60000
+const API_TIMEOUT = 30000
 
 declare global {
   interface Window {
@@ -37,6 +39,7 @@ export function PayPalCheckout({
   onSuccess,
   onError,
 }: PayPalCheckoutProps) {
+  const { language } = useLanguage()
   const [sdkReady, setSdkReady] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -99,7 +102,9 @@ export function PayPalCheckout({
     timeoutRef.current = setTimeout(() => {
       console.error("[PayPal] SDK load timeout")
       clearTimers()
-      setError("PayPal 加载超时，可能是网络问题。请检查网络连接后重试。")
+      setError(language === "zh" 
+        ? "PayPal 加载超时。中国大陆用户请确保使用稳定的VPN，并能正常访问 paypal.com" 
+        : "PayPal loading timed out. Please check your network connection and ensure you can access paypal.com")
       setIsLoading(false)
       if (scriptRef.current) {
         scriptRef.current.remove()
@@ -126,7 +131,9 @@ export function PayPalCheckout({
     script.addEventListener("error", (e) => {
       console.error("[PayPal] SDK load error:", e)
       clearTimers()
-      setError("PayPal 加载失败，请检查网络连接或刷新页面重试。")
+      setError(language === "zh"
+        ? "PayPal 加载失败。中国大陆用户请确保使用稳定的VPN，并能正常访问 paypal.com"
+        : "PayPal failed to load. Please check your network and ensure you can access paypal.com")
       setIsLoading(false)
       script.remove()
       scriptRef.current = null
@@ -134,7 +141,7 @@ export function PayPalCheckout({
 
     document.body.appendChild(script)
     scriptRef.current = script
-  }, [currency, clearTimers])
+  }, [currency, clearTimers, language])
 
   useEffect(() => {
     loadPayPalSDK()
@@ -191,7 +198,9 @@ export function PayPalCheckout({
               return data.orderId
             } catch (err: any) {
               console.error("[PayPal] Create order error:", err)
-              setError("创建订单失败：" + (err.message || "未知错误"))
+              setError(language === "zh"
+                ? "创建订单失败：" + (err.message || "未知错误") + "。如网络不稳定，请检查VPN连接"
+                : "Failed to create order: " + (err.message || "Unknown error") + ". Please check your network connection")
               throw err
             }
           },
@@ -215,13 +224,17 @@ export function PayPalCheckout({
               onSuccess(details)
             } catch (err: any) {
               console.error("[PayPal] Capture error:", err)
-              setError("支付确认失败：" + (err.message || "未知错误"))
+              setError(language === "zh"
+                ? "支付确认失败：" + (err.message || "未知错误") + "。如网络不稳定，请检查VPN连接"
+                : "Payment confirmation failed: " + (err.message || "Unknown error") + ". Please check your network connection")
               if (onError) onError(err)
             }
           },
           onError: (err: any) => {
             console.error("[PayPal] Button error:", err)
-            setError("支付过程中出现错误，请重试。")
+            setError(language === "zh"
+              ? "支付过程中出现错误。中国大陆用户请确保VPN稳定，能正常访问 paypal.com"
+              : "An error occurred during payment. Please ensure you have a stable connection to paypal.com")
             if (onError) onError(err)
           },
           onCancel: () => {
@@ -252,7 +265,9 @@ export function PayPalCheckout({
       <Alert variant="destructive" className="mb-4">
         <AlertCircle className="h-4 w-4" />
         <AlertDescription className="ml-2">
-          <div className="font-semibold mb-2">支付加载失败</div>
+          <div className="font-semibold mb-2">
+            {language === "zh" ? "支付加载失败" : "Payment Loading Failed"}
+          </div>
           <div className="text-sm">{error}</div>
           <div className="flex gap-2 mt-3">
             <Button
@@ -262,7 +277,7 @@ export function PayPalCheckout({
               onClick={handleRetry}
             >
               <RefreshCw className="w-4 h-4 mr-2" />
-              重试加载
+              {language === "zh" ? "重试加载" : "Retry"}
             </Button>
             <Button
               variant="outline"
@@ -270,7 +285,7 @@ export function PayPalCheckout({
               className="bg-transparent"
               onClick={() => window.location.reload()}
             >
-              刷新页面
+              {language === "zh" ? "刷新页面" : "Refresh Page"}
             </Button>
           </div>
         </AlertDescription>
@@ -282,7 +297,9 @@ export function PayPalCheckout({
     return (
       <div className="flex flex-col items-center justify-center p-12 bg-gray-50 rounded-lg">
         <Loader2 className="h-10 w-10 animate-spin text-blue mb-4" />
-        <span className="text-gray-700 font-medium">正在加载 PayPal 支付...</span>
+        <span className="text-gray-700 font-medium">
+          {language === "zh" ? "正在加载 PayPal 支付..." : "Loading PayPal..."}
+        </span>
         <div className="w-48 h-2 bg-gray-200 rounded-full mt-4 overflow-hidden">
           <div
             className="h-full bg-blue transition-all duration-300"
@@ -290,13 +307,21 @@ export function PayPalCheckout({
           />
         </div>
         <span className="text-xs text-gray-500 mt-2">
-          {loadProgress < 30 ? "正在连接 PayPal 服务器..." :
-           loadProgress < 60 ? "正在加载支付组件..." :
-           "即将完成..."}
+          {language === "zh" 
+            ? (loadProgress < 30 ? "正在连接 PayPal 服务器..." :
+               loadProgress < 60 ? "正在加载支付组件..." :
+               "即将完成...")
+            : (loadProgress < 30 ? "Connecting to PayPal..." :
+               loadProgress < 60 ? "Loading payment component..." :
+               "Almost done...")}
         </span>
         <div className="flex items-center gap-1 text-xs text-gray-400 mt-3">
           <Wifi className="w-3 h-3" />
-          <span>如加载缓慢，请检查网络连接</span>
+          <span>
+            {language === "zh" 
+              ? "如加载缓慢，请检查VPN连接（中国大陆需稳定VPN）" 
+              : "If loading is slow, please check your network connection"}
+          </span>
         </div>
       </div>
     )
@@ -306,8 +331,13 @@ export function PayPalCheckout({
     <div className="w-full">
       <div ref={paypalRef} className="w-full min-h-[200px]" />
       <div className="mt-4 text-center text-xs text-gray-500">
-        <p>点击上方按钮使用 PayPal 完成支付</p>
-        <p className="mt-1">支持 PayPal 账户、信用卡和借记卡</p>
+        <p>{language === "zh" ? "点击上方按钮使用 PayPal 完成支付" : "Click the button above to pay with PayPal"}</p>
+        <p className="mt-1">{language === "zh" ? "支持 PayPal 账户、信用卡和借记卡" : "Supports PayPal account, credit and debit cards"}</p>
+        <p className="mt-2 text-orange-600">
+          {language === "zh" 
+            ? "提示：中国大陆用户请确保使用稳定的VPN，并能正常访问 paypal.com" 
+            : "Note: Users in mainland China need a stable VPN to access paypal.com"}
+        </p>
       </div>
     </div>
   )

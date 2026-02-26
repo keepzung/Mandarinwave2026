@@ -519,6 +519,11 @@ function PaymentContent() {
                             <div className="text-sm text-gray-500">
                               {language === "zh" ? "使用PayPal账户安全支付" : "Pay securely with PayPal"}
                             </div>
+                            <div className="text-xs text-orange-600 mt-1">
+                              {language === "zh" 
+                                ? "中国大陆用户需使用稳定VPN" 
+                                : "Users in mainland China need a stable VPN"}
+                            </div>
                           </div>
                           <div className={`w-5 h-5 rounded-full border-2 ${
                             selectedPaymentMethod === "paypal" ? "border-[#0070BA] bg-[#0070BA]" : "border-gray-300"
@@ -630,6 +635,11 @@ function PaymentContent() {
 
                   <div className="text-xs text-center text-gray-500 space-y-1">
                     <div>{language === "zh" ? "安全支付由PayPal提供" : "Secure payment by PayPal"}</div>
+                    <div className="text-orange-600">
+                      {language === "zh" 
+                        ? "中国大陆用户使用PayPal需确保VPN稳定" 
+                        : "Users in mainland China need a stable VPN for PayPal"}
+                    </div>
                   </div>
                 </CardContent>
               </Card>
