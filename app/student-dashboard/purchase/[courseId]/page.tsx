@@ -62,6 +62,10 @@ export default function CoursePackagePage() {
         setCourse(courseData)
       }
 
+      // Check if it's summer camp
+      const isSummerCamp = courseId === "summer-camp"
+
+      // Set packages - special handling for summer camp
       setPackages([
         {
           id: "pkg-trial",
@@ -135,9 +139,34 @@ export default function CoursePackagePage() {
           validity_days: 728,
           price_per_class: 168,
           discount: "40%",
+         },
+        // Summer camp packages
+        {
+          id: "summer-camp-early-bird",
+          name_zh: "夏令营早鸟价",
+          name_en: "Summer Camp Early Bird",
+          description_zh: "夏令营早鸟价套餐",
+          description_en: "Summer camp early bird package",
+          class_count: 0,
+          price: 26000,
+          validity_days: 0,
+          price_per_class: 0,
+          discount: "限时优惠",
+        },
+        {
+          id: "summer-camp-standard",
+          name_zh: "夏令营标准价",
+          name_en: "Summer Camp Standard Price",
+          description_zh: "夏令营标准价套餐",
+          description_en: "Summer camp standard price package",
+          class_count: 0,
+          price: 28000,
+          validity_days: 0,
+          price_per_class: 0,
+          discount: "",
         },
       ])
-    } catch (err) {
+     } catch (err) {
       console.error("[v0] Exception loading data:", err)
     } finally {
       setLoading(false)
@@ -148,6 +177,25 @@ export default function CoursePackagePage() {
     setPurchasing(packageId)
 
     try {
+      // Check if it's summer camp
+      const isSummerCamp = courseId === "summer-camp"
+
+      // For summer camp, directly navigate to payment page without creating pending order
+      if (isSummerCamp) {
+        const packageName = packageId.includes("early-bird")
+          ? (language === "zh" ? "夏令营早鸟价" : "Summer Camp Early Bird")
+          : (language === "zh" ? "夏令营标准价" : "Summer Camp Standard Price")
+
+        const orderNumber = `ORD-${Date.now()}-${Math.random().toString(36).substring(2, 9).toUpperCase()}`
+
+        // Navigate directly to payment page
+        router.push(
+          `/payment?courseId=${courseId}&courseName=${encodeURIComponent(packageName)}&packageId=${packageId}&packageName=${encodeURIComponent(packageName)}&classCount=0&price=${price}&validityDays=0&orderNumber=${orderNumber}`
+        )
+        return
+      }
+
+      // For other courses, proceed with the original logic
       const supabase = createBrowserClient()
       const {
         data: { user },

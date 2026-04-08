@@ -55,19 +55,22 @@ function PaymentContent() {
     const validityDays = searchParams.get("validityDays")
     const existingOrderNumber = searchParams.get("orderNumber")
 
-    if (!classCount || !price) {
+    if (!price) {
       router.replace("/student-dashboard/purchase")
       return
     }
+
+    // Check if it's summer camp
+    const isSummerCamp = courseId === "summer-camp"
 
     setPaymentInfo({
       courseId: courseId || "",
       courseName: courseName || packageName || "",
       packageId: packageId || "",
       packageName: packageName || "",
-      classCount: Number.parseInt(classCount || "0"),
+      classCount: isSummerCamp ? 0 : Number.parseInt(classCount || "0"),
       price: Number.parseFloat(price || "0"),
-      validityDays: Number.parseInt(validityDays || "365"),
+      validityDays: isSummerCamp ? 0 : Number.parseInt(validityDays || "365"),
     })
 
     setOrderNumber(
@@ -210,7 +213,7 @@ function PaymentContent() {
         return
       }
 
-      console.log("[v0] Updating order status to paid:", orderNumber)
+       console.log("[v0] Updating order status to paid:", orderNumber)
 
       const { data: updateData, error: updateError } = await supabase
         .from("student_orders")
@@ -228,23 +231,25 @@ function PaymentContent() {
         throw new Error(language === "zh" ? "订单更新失败" : "Failed to update order")
       }
 
-      const { data: existingBalance } = await supabase
-        .from("student_class_balance")
-        .select("*")
-        .eq("student_id", studentId)
-        .maybeSingle()
-
-      if (existingBalance) {
-        const { error: balanceUpdateError } = await supabase
+      // Check if it's summer camp - if so, skip creating class balance
+      if (paymentInfo.courseId !== "summer-camp") {
+        const { data: existingBalance } = await supabase
           .from("student_class_balance")
-          .update({
-            total_classes: existingBalance.total_classes + paymentInfo.classCount,
-            remaining_classes: existingBalance.remaining_classes + paymentInfo.classCount,
-            updated_at: new Date().toISOString(),
-          })
+          .select("*")
           .eq("student_id", studentId)
+          .maybeSingle()
 
-        if (balanceUpdateError) {
+        if (existingBalance) {
+          const { error: balanceUpdateError } = await supabase
+            .from("student_class_balance")
+            .update({
+              total_classes: existingBalance.total_classes + paymentInfo.classCount,
+              remaining_classes: existingBalance.remaining_classes + paymentInfo.classCount,
+              updated_at: new Date().toISOString(),
+            })
+            .eq("student_id", studentId)
+
+         if (balanceUpdateError) {
           console.error("[v0] Balance update error:", balanceUpdateError)
           throw new Error(language === "zh" ? "课时更新失败" : "Failed to update class balance")
         }
@@ -263,11 +268,13 @@ function PaymentContent() {
           throw new Error(language === "zh" ? "课时创建失败" : "Failed to create class balance")
         }
       }
+      }
 
+      // Alert message for all courses
       alert(
         language === "zh"
-          ? `支付成功！\n\n订单号：${orderNumber}\n课程数量：${paymentInfo.classCount} 节课\n支付金额：¥${paymentInfo.price}\n\n课时已添加到您的账户。`
-          : `Payment successful!\n\nOrder Number: ${orderNumber}\nClasses: ${paymentInfo.classCount}\nAmount: ¥${paymentInfo.price}\n\nClasses have been added to your account.`,
+          ? `支付成功！\n\n订单号：${orderNumber}\n课程名称：${paymentInfo.courseName}\n支付金额：¥${paymentInfo.price}\n\n${paymentInfo.courseId === "summer-camp" ? "订单已记录，请联系客服确认详情。" : "课时已添加到您的账户。"}`
+          : `Payment successful!\n\nOrder Number: ${orderNumber}\nCourse Name: ${paymentInfo.courseName}\nAmount: ¥${paymentInfo.price}\n\n${paymentInfo.courseId === "summer-camp" ? "Order recorded, please contact customer service for details." : "Classes have been added to your account."}`,
       )
 
       router.push("/student-dashboard")
@@ -370,52 +377,71 @@ function PaymentContent() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-blue/10 rounded-lg flex items-center justify-center">
-                        <Package className="w-5 h-5 text-blue" />
+                  {/* Only show class count, validity, and duration for non-summer-camp courses */}
+                  {paymentInfo.courseId !== "summer-camp" && (
+                    <>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-blue/10 rounded-lg flex items-center justify-center">
+                            <Package className="w-5 h-5 text-blue" />
+                          </div>
+                          <div>
+                            <div className="text-sm text-gray-600">{language === "zh" ? "课程数量" : "Classes"}</div>
+                            <div className="font-semibold">
+                              {paymentInfo.classCount} {language === "zh" ? "节课" : "classes"}
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-orange/10 rounded-lg flex items-center justify-center">
+                            <Calendar className="w-5 h-5 text-orange" />
+                          </div>
+                          <div>
+                            <div className="text-sm text-gray-600">{language === "zh" ? "有效期" : "Validity"}</div>
+                            <div className="font-semibold">
+                              {paymentInfo.validityDays} {language === "zh" ? "天" : "days"}
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-green-600/10 rounded-lg flex items-center justify-center">
+                            <Clock className="w-5 h-5 text-green-600" />
+                          </div>
+                          <div>
+                            <div className="text-sm text-gray-600">{language === "zh" ? "课时时长" : "Duration"}</div>
+                            <div className="font-semibold">{language === "zh" ? "45分钟/节" : "45 min/class"}</div>
+                          </div>
+                        </div>
                       </div>
-                      <div>
-                        <div className="text-sm text-gray-600">{language === "zh" ? "课程数量" : "Classes"}</div>
-                        <div className="font-semibold">
-                          {paymentInfo.classCount} {language === "zh" ? "节课" : "classes"}
+
+                      <div className="bg-blue/5 rounded-lg p-4 mt-4">
+                        <div className="flex items-start gap-2">
+                          <AlertCircle className="w-5 h-5 text-blue mt-0.5 flex-shrink-0" />
+                          <div className="text-sm text-gray-700">
+                            {language === "zh"
+                              ? "购买后课时将自动添加到您的账户，您可以在学生面板中查看和使用。"
+                              : "After purchase, classes will be automatically added to your account and can be viewed in your student dashboard."}
+                          </div>
+                        </div>
+                      </div>
+                    </>
+                  )}
+
+                  {/* Summer camp specific message */}
+                  {paymentInfo.courseId === "summer-camp" && (
+                    <div className="bg-orange/5 rounded-lg p-4 mt-4">
+                      <div className="flex items-start gap-2">
+                        <AlertCircle className="w-5 h-5 text-orange mt-0.5 flex-shrink-0" />
+                        <div className="text-sm text-gray-700">
+                          {language === "zh"
+                            ? "夏令营报名后，相关信息将在您完成支付后更新。"
+                            : "After summer camp registration, information will be updated after payment completion."}
                         </div>
                       </div>
                     </div>
-
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-orange/10 rounded-lg flex items-center justify-center">
-                        <Calendar className="w-5 h-5 text-orange" />
-                      </div>
-                      <div>
-                        <div className="text-sm text-gray-600">{language === "zh" ? "有效期" : "Validity"}</div>
-                        <div className="font-semibold">
-                          {paymentInfo.validityDays} {language === "zh" ? "天" : "days"}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-green-600/10 rounded-lg flex items-center justify-center">
-                        <Clock className="w-5 h-5 text-green-600" />
-                      </div>
-                      <div>
-                        <div className="text-sm text-gray-600">{language === "zh" ? "课时时长" : "Duration"}</div>
-                        <div className="font-semibold">{language === "zh" ? "45分钟/节" : "45 min/class"}</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="bg-blue/5 rounded-lg p-4 mt-4">
-                    <div className="flex items-start gap-2">
-                      <AlertCircle className="w-5 h-5 text-blue mt-0.5 flex-shrink-0" />
-                      <div className="text-sm text-gray-700">
-                        {language === "zh"
-                          ? "购买后课时将自动添加到您的账户，您可以在学生面板中查看和使用。"
-                          : "After purchase, classes will be automatically added to your account and can be viewed in your student dashboard."}
-                      </div>
-                    </div>
-                  </div>
+                  )}
                 </CardContent>
               </Card>
 
