@@ -1,14 +1,16 @@
 "use client"
 
-import { Sun, Palmtree, Users, Calendar, ArrowLeft, Home } from "lucide-react"
+import { Sun, Palmtree, Users, Calendar, ArrowLeft, Home, Check, ShoppingBag, Clock, MapPin } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { useState } from "react"
 
 export default function SummerCampPage() {
   const { language } = useLanguage()
   const router = useRouter()
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState<string | null>(null)
 
   const features = [
     {
@@ -32,6 +34,69 @@ export default function SummerCampPage() {
       desc: language === "zh" ? "专为暑期设计的学习方案" : "Learning plan designed for summer",
     },
   ]
+
+  const timeSlots = [
+    {
+      id: "第一期",
+      name_zh: "第一期",
+      name_en: "Period 1",
+      dates: "6月22日 - 7月3日",
+      days: "周一至周五",
+    },
+    {
+      id: "第二期",
+      name_zh: "第二期",
+      name_en: "Period 2",
+      dates: "7月13日 - 7月24日",
+      days: "周一至周五",
+    },
+    {
+      id: "第三期",
+      name_zh: "第三期",
+      name_en: "Period 3",
+      dates: "8月3日 - 8月14日",
+      days: "周一至周五",
+    },
+  ]
+
+  const priceOptions = [
+    {
+      id: "early-bird",
+      name_zh: "早鸟价",
+      name_en: "Early Bird",
+      price: 26000,
+      discount: "限时优惠",
+    },
+    {
+      id: "standard",
+      name_zh: "标准价",
+      name_en: "Standard Price",
+      price: 28000,
+      discount: "",
+    },
+  ]
+
+  const handlePurchase = async (timeSlotId: string, priceId: string) => {
+    // Convert to lowercase and replace spaces with hyphens
+    const slug = timeSlotId.toLowerCase().replace(/\s+/g, "-")
+    const packageId = `summer-camp-${slug}-${priceId}`.replace(/\s+/g, "-")
+    const packageName = `${timeSlotId}-${priceId}`
+
+    // Generate order number
+    const orderNumber = `ORD-${Date.now()}-${Math.random().toString(36).substring(2, 9).toUpperCase()}`
+
+    // Determine price
+    const price = priceId === "early-bird" ? 26000 : 28000
+
+    // Get current course ID from the page context
+    // This would need to be passed from the parent component, but for now we'll use a hardcoded approach
+    const courseId = "summer-camp"
+
+    // Directly navigate to payment page, skipping the purchase page
+    router.push(
+      `/payment?courseId=${courseId}&courseName=${encodeURIComponent(packageName)}&packageId=${packageId}&packageName=${encodeURIComponent(packageName)}&classCount=0&price=${price}&validityDays=0&orderNumber=${orderNumber}`
+    )
+  }
 
   return (
     <div className="min-h-screen">
@@ -72,37 +137,107 @@ export default function SummerCampPage() {
         </div>
       </section>
 
-      {/* Program Overview */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4 max-w-4xl">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-black">
-            {language === "zh" ? "项目介绍" : "Program Overview"}
-          </h2>
-          <div className="bg-white p-8 rounded-xl shadow-sm">
-            <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-              {language === "zh"
-                ? "夏令营项目为学员打造充满活力的沉浸式中文学习体验。在炎炎夏日中，学员将参与户外文化探索、传统手工艺体验、城市文化考察等丰富活动，在轻松愉快的氛围中提升中文能力。"
-                : "Our Summer Camp program creates a vibrant immersive Chinese learning experience. During the hot summer, students will participate in outdoor cultural exploration, traditional craft experiences, urban cultural visits, and more, improving Chinese skills in a relaxed and enjoyable atmosphere."}
-            </p>
-            <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-              {language === "zh"
-                ? "项目结合了系统的中文课程和丰富的实践活动。学员将在专业教师的带领下，通过真实的语言环境和互动体验，全面提升中文听说读写能力，同时深入了解中国当代文化和传统习俗。"
-                : "The program combines systematic Chinese courses with rich practical activities. Led by professional teachers, students will comprehensively improve their Chinese listening, speaking, reading, and writing skills through authentic language environments and interactive experiences, while gaining deep insights into contemporary Chinese culture and traditional customs."}
-            </p>
-
-            {/* Advisory Note */}
-            <div className="mt-8 p-6 bg-blue/10 border-l-4 border-blue rounded">
-              <p className="text-lg font-semibold text-blue mb-2">
-                {language === "zh"
-                  ? "📋 具体安排请咨询课程顾问"
-                  : "📋 For detailed arrangements, please consult a course advisor"}
-              </p>
-              <p className="text-gray-700">
-                {language === "zh"
-                  ? "我们的课程顾问将根据您的需求和时间安排，为您定制最适合的夏令营方案。"
-                  : "Our course advisors will customize the best summer camp plan for you based on your needs and schedule."}
-              </p>
+      {/* Program Introduction - Chinese Version */}
+      {language === "zh" && (
+        <section className="py-16 bg-gray-50">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-black">
+              项目介绍
+            </h2>
+            <div className="max-w-7xl mx-auto">
+              <img
+                src="/images/summer-camp-program-review-zh.png"
+                alt="夏令营项目介绍"
+                className="w-full h-auto rounded-xl shadow-lg"
+                loading="lazy"
+              />
             </div>
+          </div>
+        </section>
+      )}
+
+      {/* Program Introduction - English Version */}
+      {language === "en" && (
+        <section className="py-16 bg-gray-50">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-black">
+              Program Introduction
+            </h2>
+            <div className="max-w-7xl mx-auto">
+              <img
+                src="/images/summer-camp-program-review-en.png"
+                alt="Summer Camp Program Introduction"
+                className="w-full h-auto rounded-xl shadow-lg"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Packages Selection */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-black">
+            {language === "zh" ? "选择您的夏令营时段" : "Choose Your Summer Camp Period"}
+          </h2>
+          <p className="text-center text-gray-600 mb-12 text-lg">
+            {language === "zh"
+              ? "选择最适合您的时间段，并选择价格类型"
+              : "Select your preferred time period and price option"}
+          </p>
+
+          <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {timeSlots.map((slot) => (
+              <div
+                key={slot.id}
+                className="bg-white border-2 border-gray-200 rounded-xl shadow-md hover:shadow-xl transition-all p-6"
+              >
+                <div className="mb-6">
+                  <h3 className="text-2xl font-bold mb-2 text-black">
+                    {language === "zh" ? slot.name_zh : slot.name_en}
+                  </h3>
+                  <p className="text-gray-600 text-sm mb-2">
+                    <MapPin className="w-4 h-4 inline mr-1" />
+                    {slot.dates}
+                  </p>
+                  <p className="text-gray-500 text-sm">
+                    <Clock className="w-4 h-4 inline mr-1" />
+                    {slot.days}
+                  </p>
+                </div>
+
+                <div className="space-y-3 mb-6">
+                  <p className="text-sm font-semibold text-gray-700 mb-2">
+                    {language === "zh" ? "选择价格类型" : "Select Price Type"}
+                  </p>
+                  {priceOptions.map((price) => (
+                    <div
+                      key={price.id}
+                      onClick={() => handlePurchase(slot.id, price.id)}
+                      className="flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:border-orange hover:bg-orange/5 cursor-pointer transition-colors"
+                    >
+                      <span className="font-medium text-gray-700">
+                        {language === "zh" ? price.name_zh : price.name_en}
+                      </span>
+                      <div className="text-right">
+                        <div className="font-bold text-orange text-lg">¥{price.price.toLocaleString()}</div>
+                        {price.discount && (
+                          <div className="text-xs text-orange-600">{price.discount}</div>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <Button
+                  onClick={() => handlePurchase(slot.id, "early-bird")}
+                  className="w-full bg-orange hover:bg-orange/90 text-white"
+                >
+                  {language === "zh" ? "立即预订" : "Book Now"}
+                </Button>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -124,6 +259,14 @@ export default function SummerCampPage() {
                 {language === "zh" ? "立即咨询" : "Contact Now"}
               </Button>
             </Link>
+            <Button
+              size="lg"
+              onClick={() => handlePurchase("第一期", "early-bird")}
+              className="bg-white text-orange hover:bg-gray-100"
+            >
+              <ShoppingBag className="w-4 h-4 mr-2" />
+              {language === "zh" ? "立即购买" : "Buy Now"}
+            </Button>
             <Button size="lg" variant="outline" className="bg-white text-orange hover:bg-gray-100" onClick={() => router.back()}>
               <ArrowLeft className="w-4 h-4 mr-2" />
               {language === "zh" ? "返回上一页" : "Go Back"}
