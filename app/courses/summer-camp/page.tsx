@@ -40,22 +40,28 @@ export default function SummerCampPage() {
       id: "第一期",
       name_zh: "第一期",
       name_en: "Session 1",
-      dates: "6月22日 - 7月3日",
-      days: "周一至周五",
+      dates_zh: "6月22日 - 7月3日",
+      dates_en: "Jun 22 - Jul 3",
+      days_zh: "周一至周五",
+      days_en: "Monday to Friday",
     },
     {
       id: "第二期",
       name_zh: "第二期",
       name_en: "Session 2",
-      dates: "7月13日 - 7月24日",
-      days: "周一至周五",
+      dates_zh: "7月13日 - 7月24日",
+      dates_en: "Jul 13 - Jul 24",
+      days_zh: "周一至周五",
+      days_en: "Monday to Friday",
     },
     {
       id: "第三期",
       name_zh: "第三期",
       name_en: "Session 3",
-      dates: "8月3日 - 8月14日",
-      days: "周一至周五",
+      dates_zh: "8月3日 - 8月14日",
+      dates_en: "Aug 3 - Aug 14",
+      days_zh: "周一至周五",
+      days_en: "Monday to Friday",
     },
   ]
 
@@ -65,36 +71,36 @@ export default function SummerCampPage() {
       name_zh: "早鸟价",
       name_en: "Early Bird",
       price: 26000,
-      discount: "限时优惠",
+      discount_zh: "限时优惠",
+      discount_en: "Flash Sale",
     },
     {
       id: "standard",
       name_zh: "标准价",
       name_en: "Standard Price",
       price: 28000,
-      discount: "",
+      discount_zh: "",
+      discount_en: "",
     },
   ]
 
   const handlePurchase = async (timeSlotId: string, priceId: string) => {
-    // Convert to lowercase and replace spaces with hyphens
+    const slot = timeSlots.find((s) => s.id === timeSlotId)
+    const priceOption = priceOptions.find((p) => p.id === priceId)
     const slug = timeSlotId.toLowerCase().replace(/\s+/g, "-")
     const packageId = `summer-camp-${slug}-${priceId}`.replace(/\s+/g, "-")
-    const packageName = `${timeSlotId}-${priceId}`
+    const displayName = language === "zh"
+      ? `${timeSlotId}-${priceOption?.name_zh || priceId}`
+      : `${slot?.name_en || timeSlotId}-${priceOption?.name_en || priceId}`
 
-    // Generate order number
     const orderNumber = `ORD-${Date.now()}-${Math.random().toString(36).substring(2, 9).toUpperCase()}`
 
-    // Determine price
     const price = priceId === "early-bird" ? 26000 : 28000
 
-    // Get current course ID from the page context
-    // This would need to be passed from the parent component, but for now we'll use a hardcoded approach
     const courseId = "summer-camp"
 
-    // Directly navigate to payment page, skipping the purchase page
     router.push(
-      `/payment?courseId=${courseId}&courseName=${encodeURIComponent(packageName)}&packageId=${packageId}&packageName=${encodeURIComponent(packageName)}&classCount=0&price=${price}&validityDays=0&orderNumber=${orderNumber}`
+      `/payment?courseId=${courseId}&courseName=${encodeURIComponent(displayName)}&packageId=${packageId}&packageName=${encodeURIComponent(displayName)}&classCount=0&price=${price}&validityDays=0&orderNumber=${orderNumber}`
     )
   }
 
@@ -199,11 +205,11 @@ export default function SummerCampPage() {
                   </h3>
                   <p className="text-gray-600 text-sm mb-2">
                     <MapPin className="w-4 h-4 inline mr-1" />
-                    {slot.dates}
+                    {language === "zh" ? slot.dates_zh : slot.dates_en}
                   </p>
                   <p className="text-gray-500 text-sm">
                     <Clock className="w-4 h-4 inline mr-1" />
-                    {slot.days}
+                    {language === "zh" ? slot.days_zh : slot.days_en}
                   </p>
                 </div>
 
@@ -222,8 +228,11 @@ export default function SummerCampPage() {
                       </span>
                       <div className="text-right">
                         <div className="font-bold text-orange text-lg">¥{price.price.toLocaleString()}</div>
-                        {price.discount && (
-                          <div className="text-xs text-orange-600">{price.discount}</div>
+                        {price.discount_zh && language === "zh" && (
+                          <div className="text-xs text-orange-600">{price.discount_zh}</div>
+                        )}
+                        {price.discount_en && language === "en" && (
+                          <div className="text-xs text-orange-600">{price.discount_en}</div>
                         )}
                       </div>
                     </div>
