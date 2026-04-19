@@ -150,13 +150,16 @@ export default function SummerCampPage() {
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-black">
               项目介绍
             </h2>
-            <div className="max-w-7xl mx-auto">
-              <img
-                src="/images/summer-camp-program-review-zh.png"
-                alt="夏令营项目介绍"
-                className="w-full h-auto rounded-xl shadow-lg"
-                loading="lazy"
-              />
+            <div className="max-w-7xl mx-auto overflow-hidden rounded-xl shadow-lg">
+              {[1,2,3,4,5,6,7,8,9,10,11,12].map((i) => (
+                <img
+                  key={i}
+                  src={`/images/summer-camp-program-zh-${i}.png`}
+                  alt={`夏令营项目介绍 ${i}`}
+                  className="w-full h-auto block"
+                  loading="lazy"
+                />
+              ))}
             </div>
           </div>
         </section>
@@ -169,13 +172,16 @@ export default function SummerCampPage() {
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-black">
               Program Introduction
             </h2>
-            <div className="max-w-7xl mx-auto">
-              <img
-                src="/images/summer-camp-program-review-en.png"
-                alt="Summer Camp Program Introduction"
-                className="w-full h-auto rounded-xl shadow-lg"
-                loading="lazy"
-              />
+            <div className="max-w-7xl mx-auto overflow-hidden rounded-xl shadow-lg">
+              {[1,2,3,4,5,6,7,8,9,10,11,12].map((i) => (
+                <img
+                  key={i}
+                  src={`/images/summer-camp-program-en-${i}.png`}
+                  alt={`Summer Camp Program Introduction ${i}`}
+                  className="w-full h-auto block"
+                  loading="lazy"
+                />
+              ))}
             </div>
           </div>
         </section>
