@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
+import ProgramIntroduction from "./program-introduction"
 
 export default function SummerCampPage() {
   const { language } = useLanguage()
@@ -109,6 +110,12 @@ export default function SummerCampPage() {
       {/* Hero Section */}
       <section className="bg-orange text-white py-20">
         <div className="container mx-auto px-4">
+          <Link href="/">
+            <Button variant="outline" className="mb-6 bg-white/20 text-white border-white/50 hover:bg-white/30">
+              <Home className="w-4 h-4 mr-2" />
+              {language === "zh" ? "首页" : "Home"}
+            </Button>
+          </Link>
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">{language === "zh" ? "夏令营" : "Summer Camp"}</h1>
             <p className="text-xl text-white/90 mb-8 leading-relaxed">
@@ -143,49 +150,8 @@ export default function SummerCampPage() {
         </div>
       </section>
 
-      {/* Program Introduction - Chinese Version */}
-      {language === "zh" && (
-        <section className="py-16 bg-gray-50">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-black">
-              项目介绍
-            </h2>
-            <div className="max-w-7xl mx-auto overflow-hidden rounded-xl shadow-lg">
-              {[1,2,3,4,5,6,7,8,9,10,11,12].map((i) => (
-                <img
-                  key={i}
-                  src={`/images/summer-camp-program-zh-${i}.png`}
-                  alt={`夏令营项目介绍 ${i}`}
-                  className="w-full h-auto block"
-                  loading="lazy"
-                />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Program Introduction - English Version */}
-      {language === "en" && (
-        <section className="py-16 bg-gray-50">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-black">
-              Program Introduction
-            </h2>
-            <div className="max-w-7xl mx-auto overflow-hidden rounded-xl shadow-lg">
-              {[1,2,3,4,5,6,7,8,9,10,11,12].map((i) => (
-                <img
-                  key={i}
-                  src={`/images/summer-camp-program-en-${i}.png`}
-                  alt={`Summer Camp Program Introduction ${i}`}
-                  className="w-full h-auto block"
-                  loading="lazy"
-                />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+      {/* Program Introduction */}
+      <ProgramIntroduction />
 
       {/* Packages Selection */}
       <section className="py-16 bg-white">
