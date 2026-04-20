@@ -128,11 +128,6 @@ export default function NewsPage() {
           <p className="text-lg text-blue font-semibold mb-8">
             🌐 www.mandarinwave.cn
           </p>
-          <p className="text-lg text-gray-600 font-medium italic mb-12">
-            {isZh
-              ? '声浪中文 \u2014 助您掌握语言与文化能力'
-              : 'Mandarin Wave \u2014 Equipping you with linguistic and cultural competence.'}
-          </p>
 
           {/* QR Codes */}
           <div className="border-t border-gray-200 pt-10">
