@@ -257,3 +257,26 @@ CREATE INDEX IF NOT EXISTS idx_messages_to_user ON messages(to_user_id);
 -- Done! 
 -- Default admin login: username: admin, password: admin123
 -- =============================================
+
+-- 11. Create page_visits table
+CREATE TABLE IF NOT EXISTS page_visits (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  path TEXT NOT NULL,
+  referrer TEXT,
+  user_agent TEXT,
+  ip TEXT,
+  language TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+ALTER TABLE page_visits ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Page visits can be inserted" ON page_visits
+  FOR INSERT WITH CHECK (true);
+
+CREATE POLICY "Page visits can be read by service role" ON page_visits
+  FOR SELECT USING (true);
+
+CREATE INDEX IF NOT EXISTS idx_page_visits_path ON page_visits(path);
+CREATE INDEX IF NOT EXISTS idx_page_visits_created_at ON page_visits(created_at);
+CREATE INDEX IF NOT EXISTS idx_page_visits_ip ON page_visits(ip);

@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useLanguage } from "@/lib/language-context"
 import { useState, useEffect } from "react"
 import { createBrowserClient } from "@/lib/supabase/client"
-import { UserPlus, Trash2, Eye, EyeOff, Home, Lock, ShieldCheck } from "lucide-react"
+import { UserPlus, Trash2, Eye, EyeOff, Home, Lock, ShieldCheck, BarChart3, Users, MousePointerClick } from "lucide-react"
 import { useRouter } from "next/navigation"
 
 interface AdminAccount {
@@ -34,6 +34,13 @@ export default function PrincipalPage() {
   const [error, setError] = useState("")
   const [success, setSuccess] = useState("")
   const [showPassword, setShowPassword] = useState(false)
+  const [stats, setStats] = useState<{
+    totalPV: number
+    totalUV: number
+    topPages: { path: string; count: number }[]
+    dailyTrend: { date: string; pv: number; uv: number }[]
+  } | null>(null)
+  const [statsLoading, setStatsLoading] = useState(false)
 
   // Form state
   const [formData, setFormData] = useState({
@@ -65,8 +72,24 @@ export default function PrincipalPage() {
   useEffect(() => {
     if (isAuthenticated) {
       loadAdmins()
+      loadStats()
     }
   }, [isAuthenticated])
+
+  const loadStats = async () => {
+    setStatsLoading(true)
+    try {
+      const response = await fetch("/api/analytics/stats")
+      const result = await response.json()
+      if (response.ok) {
+        setStats(result)
+      }
+    } catch {
+      // silently fail
+    } finally {
+      setStatsLoading(false)
+    }
+  }
 
   const handlePasswordSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -243,6 +266,82 @@ export default function PrincipalPage() {
         {success && (
           <div className="mb-6 p-4 bg-green-50 border border-green-200 text-green-700 rounded-lg">{success}</div>
         )}
+
+        {/* Analytics Stats */}
+        <div className="mb-8">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <BarChart3 className="w-5 h-5" />
+                {language === "zh" ? "网站访问统计" : "Website Analytics"}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {statsLoading ? (
+                <p className="text-gray-500 text-center py-4">{language === "zh" ? "加载中..." : "Loading..."}</p>
+              ) : stats ? (
+                <div className="space-y-6">
+                  <div className="grid grid-cols-2 gap-6">
+                    <div className="bg-orange/5 rounded-xl p-6 text-center">
+                      <MousePointerClick className="w-8 h-8 text-orange mx-auto mb-2" />
+                      <p className="text-3xl font-bold text-gray-900">{stats.totalPV.toLocaleString()}</p>
+                      <p className="text-sm text-gray-500">{language === "zh" ? "总访问量 (PV)" : "Total Page Views"}</p>
+                    </div>
+                    <div className="bg-blue/5 rounded-xl p-6 text-center">
+                      <Users className="w-8 h-8 text-blue mx-auto mb-2" />
+                      <p className="text-3xl font-bold text-gray-900">{stats.totalUV.toLocaleString()}</p>
+                      <p className="text-sm text-gray-500">{language === "zh" ? "独立访客 (UV)" : "Unique Visitors"}</p>
+                    </div>
+                  </div>
+
+                  {stats.dailyTrend.length > 0 && (
+                    <div>
+                      <h4 className="font-semibold text-gray-800 mb-3">{language === "zh" ? "近7天趋势" : "7-Day Trend"}</h4>
+                      <div className="grid grid-cols-7 gap-2">
+                        {stats.dailyTrend.map((day) => (
+                          <div key={day.date} className="text-center">
+                            <div
+                              className="bg-orange/20 rounded-t mx-auto"
+                              style={{
+                                width: "100%",
+                                height: `${Math.max(8, (day.pv / Math.max(...stats.dailyTrend.map((d) => d.pv), 1)) * 100)}px`,
+                              }}
+                            />
+                            <p className="text-lg font-bold text-gray-900">{day.pv}</p>
+                            <p className="text-xs text-gray-500">{day.date.slice(5)}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {stats.topPages.length > 0 && (
+                    <div>
+                      <h4 className="font-semibold text-gray-800 mb-3">{language === "zh" ? "页面访问排名" : "Top Pages"}</h4>
+                      <div className="space-y-2">
+                        {stats.topPages.map((page, index) => (
+                          <div key={page.path} className="flex items-center gap-3">
+                            <span className="text-sm font-medium text-gray-400 w-6">{index + 1}.</span>
+                            <span className="text-sm text-gray-700 flex-1 truncate">{page.path}</span>
+                            <span className="text-sm font-semibold text-gray-900">{page.count.toLocaleString()}</span>
+                            <div
+                              className="h-2 bg-orange/30 rounded-full"
+                              style={{
+                                width: `${(page.count / Math.max(...stats.topPages.map((p) => p.count), 1)) * 120}px`,
+                              }}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <p className="text-gray-500 text-center py-4">{language === "zh" ? "暂无数据" : "No data yet"}</p>
+              )}
+            </CardContent>
+          </Card>
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Create Admin Form */}

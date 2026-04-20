@@ -47,6 +47,27 @@ export default function RootLayout({
             gtag('config', 'G-4HBKTP3KDS');
           `}
         </Script>
+        <Script id="page-visit-tracker" strategy="afterInteractive">
+          {`
+            (function() {
+              try {
+                var key = 'mw_visited_' + window.location.pathname;
+                var sessionKey = 'mw_session_tracked';
+                if (sessionStorage.getItem(key)) return;
+                sessionStorage.setItem(key, '1');
+                fetch('/api/analytics/visit', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    path: window.location.pathname,
+                    referrer: document.referrer || null,
+                    language: navigator.language || null
+                  })
+                }).catch(function(){});
+              } catch(e) {}
+            })();
+          `}
+        </Script>
         <AuthProvider>
           <LanguageProvider>{children}</LanguageProvider>
         </AuthProvider>
