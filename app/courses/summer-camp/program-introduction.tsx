@@ -521,7 +521,7 @@ export default function ProgramIntroduction() {
       <section className="py-10 bg-gray-50">
         <div className="container mx-auto px-4 text-center">
           <a
-            href={isZh ? "/images/summer-camp-program-review-zh.png" : "/images/summer-camp-program-review-en.png"}
+            href={isZh ? "/images/summer-camp-program-review-zh.pdf" : "/images/summer-camp-program-review-en.pdf"}
             download
             className="inline-flex items-center gap-2 bg-orange hover:bg-orange/90 text-white font-semibold px-8 py-3 rounded-xl transition-colors"
           >
