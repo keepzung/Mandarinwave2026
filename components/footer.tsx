@@ -17,18 +17,18 @@ export function Footer() {
           <div className="md:col-span-2">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0">
-                <Image
-                  src="/logo.png"
-                  alt="MandarinWave Logo"
-                  width={48}
-                  height={48}
-                  className="w-full h-full object-cover"
-                />
+                  <Image
+                    src="/logo.png"
+                    alt="Intime Mandarin Logo"
+                    width={48}
+                    height={48}
+                    className="w-full h-full object-cover"
+                  />
               </div>
               <div className="flex flex-col items-center leading-none">
-                <div className="text-white font-bold text-base leading-none text-center">Mandarin</div>
-                <div className="text-white font-bold text-base leading-none -mt-1 text-center">wave</div>
-                <div className="text-orange text-[10px] font-medium tracking-wide text-center">声｜浪｜中｜文</div>
+                <div className="text-white font-bold text-base leading-none text-center">Intime</div>
+                <div className="text-white font-bold text-base leading-none -mt-1 text-center">Mandarin</div>
+                <div className="text-orange text-[10px] font-medium tracking-wide text-center">真｜时｜中｜文</div>
               </div>
             </div>
             <p className="text-white/70 max-w-md leading-relaxed">{t.footer.description}</p>

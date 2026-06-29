@@ -3,8 +3,8 @@ export type Language = "zh" | "en"
 export const translations = {
   zh: {
     // Header
-    logo: "声浪中文",
-    logoSub: "MandarinWave",
+    logo: "真时中文",
+    logoSub: "Intime Mandarin",
     nav: {
       courses: "课程",
       about: "关于我们",
@@ -31,10 +31,10 @@ export const translations = {
     mission: {
       title: "关于我们",
       content:
-        "声浪中文基于一个简单的理念：中文不仅是一门需要学习的语言，更是一场需要体验的旅程。我们的logo源自甲骨文中的“中”字——一面被风吹起的旗帜，线条如波浪般流动。它反映了我们的信念：语言流动、连接，并承载着人们跨越文化。",
+        "真时中文基于一个简单的理念：中文不仅是一门需要学习的语言，更是一场需要体验的旅程。我们的logo源自甲骨文中的“中”字——一面被风吹起的旗帜，线条如波浪般流动。它反映了我们的信念：语言流动、连接，并承载着人们跨越文化。",
       approach: "我们的方法",
       approachContent:
-        "我们不把中文当作一门学科，而是将其视为一种体验——需要去感受、使用和生活的东西。我们的一对一线上和线下课程提供个性化指导，而小班课程则建立互动和信心。季节性营地、文化工坊和城市旅行让学习者通过故事、传统和真实的相遇来探索中文。从练习声调到分享茶香，或是发现一条新街道，声浪中文将学习变成了一段生动的旅程——有节奏、沉浸式、充满人性。",
+        "我们不把中文当作一门学科，而是将其视为一种体验——需要去感受、使用和生活的东西。我们的一对一线上和线下课程提供个性化指导，而小班课程则建立互动和信心。季节性营地、文化工坊和城市旅行让学习者通过故事、传统和真实的相遇来探索中文。从练习声调到分享茶香，或是发现一条新街道，真时中文将学习变成了一段生动的旅程——有节奏、沉浸式、充满人性。",
     },
     // Reach
     reach: {
@@ -92,7 +92,7 @@ export const translations = {
     },
     // Why Choose Us
     why: {
-      title: "为什么选择声浪中文",
+      title: "为什么选择真时中文",
       certified: {
         title: "认证教师",
         desc: "所有教师均持有专业中文教学资格证书",
@@ -138,8 +138,8 @@ export const translations = {
   },
   en: {
     // Header
-    logo: "MandarinWave",
-    logoSub: "声浪中文",
+    logo: "Intime Mandarin",
+    logoSub: "真时中文",
     nav: {
       courses: "Courses",
       about: "About Us",
@@ -168,10 +168,10 @@ export const translations = {
     mission: {
       title: "About Us",
       content:
-        "Mandarin Wave is built on a simple idea: Mandarin is not just a language to learn, but an experience to enter. Our logo draws from the oracle-bone form of “中”—a flag lifted by the wind, its lines flowing like waves. It reflects our belief that language moves, connects, and carries people across cultures.",
+        "Intime Mandarin is built on a simple idea: Mandarin is not just a language to learn, but an experience to enter. Our logo draws from the oracle-bone form of “中”—a flag lifted by the wind, its lines flowing like waves. It reflects our belief that language moves, connects, and carries people across cultures.",
       approach: "Our Approach",
       approachContent:
-        "Instead of treating Mandarin as a subject, we approach it as an experience—something to feel, use, and live. Our one-on-one online and offline lessons provide personalized guidance, while small-group classes build interaction and confidence. Seasonal camps, cultural workshops, and city tours let learners explore Mandarin through stories, traditions, and real-life encounters. From practicing tones to sharing tea or discovering a new street, Mandarin Wave turns learning into a living journey—rhythmic, immersive, and human.",
+        "Instead of treating Mandarin as a subject, we approach it as an experience—something to feel, use, and live. Our one-on-one online and offline lessons provide personalized guidance, while small-group classes build interaction and confidence. Seasonal camps, cultural workshops, and city tours let learners explore Mandarin through stories, traditions, and real-life encounters. From practicing tones to sharing tea or discovering a new street, Intime Mandarin turns learning into a living journey—rhythmic, immersive, and human.",
     },
     // Reach
     reach: {
@@ -229,7 +229,7 @@ export const translations = {
     },
     // Why Choose Us
     why: {
-      title: "Why Choose MandarinWave",
+      title: "Why Choose Intime Mandarin",
       certified: {
         title: "Certified Teachers",
         desc: "All teachers hold professional Chinese teaching qualifications",

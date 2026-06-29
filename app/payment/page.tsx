@@ -700,7 +700,7 @@ function PaymentContent() {
               </div>
               <div className="flex justify-center">
                 <Image
-                  src="/images/wechat-pay-qr.png"
+                  src="/images/wechat-pay-qr.jpg"
                   alt="WeChat Pay QR Code"
                   width={300}
                   height={400}
@@ -758,7 +758,7 @@ function PaymentContent() {
               </div>
               <div className="flex justify-center">
                 <Image
-                  src="/images/alipay-qr.png"
+                  src="/images/alipay-qr.jpg"
                   alt="Alipay QR Code"
                   width={300}
                   height={400}

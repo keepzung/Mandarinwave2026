@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import BusinessClientPage from "./BusinessClientPage"
 
 export const metadata: Metadata = {
-  title: "Business Chinese Course | MandarinWave",
+  title: "Business Chinese Course | Intime Mandarin",
   description: "Professional business Chinese training to advance your career",
   icons: {
     icon: "/favicon.ico",

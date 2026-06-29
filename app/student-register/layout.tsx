@@ -2,8 +2,8 @@ import type React from "react"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Student Registration - MandarinWave",
-  description: "Register for MandarinWave Chinese learning courses",
+  title: "Student Registration - Intime Mandarin",
+  description: "Register for Intime Mandarin Chinese learning courses",
   icons: {
     icon: "/favicon.ico",
   },

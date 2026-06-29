@@ -1,7 +1,7 @@
 #!/bin/bash
 # WaveMandarin 自动部署脚本
 # 适用于 CentOS Stream 8
-# 域名: mandarinwave.cn
+# 域名: intimemandarin.com
 
 set -e
 
@@ -49,7 +49,7 @@ echo "[6/6] 配置 Nginx..."
 cat > /etc/nginx/conf.d/wavemandarin.conf << 'EOF'
 server {
     listen 80;
-    server_name mandarinwave.cn www.mandarinwave.cn;
+    server_name intimemandarin.com www.intimemandarin.com;
     
     location / {
         proxy_pass http://127.0.0.1:3000;
@@ -84,10 +84,10 @@ echo "========================================"
 echo "  部署完成！"
 echo "========================================"
 echo ""
-echo "网站地址: http://mandarinwave.cn"
+echo "网站地址: http://intimemandarin.com"
 echo ""
 echo "下一步 - 配置 HTTPS:"
 echo "  dnf install -y epel-release"
 echo "  dnf install -y certbot python3-certbot-nginx"
-echo "  certbot --nginx -d mandarinwave.cn -d www.mandarinwave.cn"
+echo "  certbot --nginx -d intimemandarin.com -d www.intimemandarin.com"
 echo ""

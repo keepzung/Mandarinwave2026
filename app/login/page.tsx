@@ -118,7 +118,7 @@ export default function LoginPage() {
           {/* Logo */}
           <div className="text-center mb-8">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <Image src="/logo.png" alt="MandarinWave Logo" width={64} height={64} className="w-16 h-16" />
+              <Image src="/logo.png" alt="Intime Mandarin Logo" width={64} height={64} className="w-16 h-16" />
             </div>
             <h1 className="text-3xl font-bold text-gray-900 mb-2">
               {language === "zh" ? "学员登录" : "Student Login"}

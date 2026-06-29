@@ -35,7 +35,7 @@ export default function ContactPage() {
       emailLabel: '电子邮件',
       phoneLabel: '电话',
       addressLabel: '地址',
-      emailValue: 'info@mandarinwave.cn',
+      emailValue: 'info@intimemandarin.com',
       phoneValue: '+86 15701696836',
       addressValue: '中国北京市朝阳区',
       backHome: '返回首页'
@@ -54,7 +54,7 @@ export default function ContactPage() {
       emailLabel: 'Email',
       phoneLabel: 'Phone',
       addressLabel: 'Address',
-      emailValue: 'info@mandarinwave.cn',
+      emailValue: 'info@intimemandarin.com',
       phoneValue: '+86 15701696836',
       addressValue: 'Chaoyang District, Beijing, China',
       backHome: 'Back to Home'

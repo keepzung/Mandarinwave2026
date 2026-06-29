@@ -4,7 +4,7 @@ import dynamic from "next/dynamic"
 const HSKClientPage = dynamic(() => import("./hsk-client"))
 
 export const metadata: Metadata = {
-  title: "HSK Exam Preparation | MandarinWave",
+  title: "HSK Exam Preparation | Intime Mandarin",
   description: "Systematic HSK preparation to help you pass successfully",
   icons: {
     icon: "/favicon.ico",

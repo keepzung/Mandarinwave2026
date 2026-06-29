@@ -149,7 +149,7 @@ ON CONFLICT (course_key) DO NOTHING;
 -- Password: admin123 (Base64 encoded)
 -- =============================================
 INSERT INTO admin_accounts (username, password_hash, name, email, is_active) VALUES
-('admin', 'YWRtaW4xMjM=', 'Administrator', 'admin@mandarinwave.cn', true)
+('admin', 'YWRtaW4xMjM=', 'Administrator', 'admin@intimemandarin.com', true)
 ON CONFLICT (username) DO NOTHING;
 
 -- =============================================

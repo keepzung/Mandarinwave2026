@@ -13,16 +13,6 @@ export default function Home() {
       <Header />
       <Hero />
       <Mission />
-      <section className="py-12 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <img
-            src="/images/certificate.png"
-            alt="Certificate"
-            className="w-full h-auto max-w-xl mx-auto rounded-xl shadow-lg"
-            loading="lazy"
-          />
-        </div>
-      </section>
       <Courses />
       <WhyWaveMandarin />
       <Reviews />

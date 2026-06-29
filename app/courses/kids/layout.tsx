@@ -2,7 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Kids' Chinese Course | MandarinWave",
+  title: "Kids' Chinese Course | Intime Mandarin",
   description: "Let children learn Chinese happily through games",
   icons: {
     icon: "/favicon.ico",

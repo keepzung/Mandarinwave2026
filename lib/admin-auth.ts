@@ -1,7 +1,7 @@
 import { createClient } from "@supabase/supabase-js"
 import { NextResponse } from "next/server"
 
-const ADMIN_SECRET = process.env.ADMIN_SECRET || "mandarinwave-admin-secret-2024"
+const ADMIN_SECRET = process.env.ADMIN_SECRET || "intimemandarin-admin-secret-2024"
 const TOKEN_EXPIRY_MS = 24 * 60 * 60 * 1000 // 24 hours
 
 export async function verifyAdmin(request: Request): Promise<{ success: true; adminId: string } | NextResponse> {

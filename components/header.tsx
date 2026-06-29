@@ -62,11 +62,11 @@ export function Header() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex items-center gap-3">
-            <Image src="/logo.png" alt="MandarinWave Logo" width={64} height={64} className="w-16 h-16" />
+            <Image src="/logo.png" alt="Intime Mandarin Logo" width={64} height={64} className="w-16 h-16" />
             <div className="flex flex-col items-center text-center leading-none">
-              <div className="text-black font-bold text-base leading-none">Mandarin</div>
-              <div className="text-black font-bold text-base leading-none -mt-1">wave</div>
-              <div className="text-orange text-[10px] font-medium tracking-wide">声｜浪｜中｜文</div>
+              <div className="text-black font-bold text-base leading-none">Intime</div>
+              <div className="text-black font-bold text-base leading-none -mt-1">Mandarin</div>
+              <div className="text-orange text-[10px] font-medium tracking-wide">真｜时｜中｜文</div>
             </div>
           </div>
 
@@ -100,9 +100,6 @@ export function Header() {
             </a>
             <a href="#reviews" className="text-gray-700 hover:text-orange transition-colors font-medium">
               {t.nav.reviews}
-            </a>
-            <a href="/news" className="text-gray-700 hover:text-orange transition-colors font-medium">
-              {language === "zh" ? '新闻' : 'News'}
             </a>
             <a href="#contact" className="text-gray-700 hover:text-orange transition-colors font-medium">
               {t.nav.contact}
@@ -253,9 +250,6 @@ export function Header() {
               </a>
               <a href="#reviews" className="text-gray-700 hover:text-orange transition-colors py-2 font-medium">
                 {t.nav.reviews}
-              </a>
-              <a href="/news" className="text-gray-700 hover:text-orange transition-colors py-2 font-medium">
-                {language === "zh" ? '新闻' : 'News'}
               </a>
               <a href="#contact" className="text-gray-700 hover:text-orange transition-colors py-2 font-medium">
                 {t.nav.contact}
