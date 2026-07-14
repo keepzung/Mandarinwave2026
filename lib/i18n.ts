@@ -4,7 +4,7 @@ export const translations = {
   zh: {
     // Header
     logo: "真时中文",
-    logoSub: "Intime Mandarin",
+    logoSub: "InTime Mandarin",
     nav: {
       courses: "课程",
       about: "关于我们",
@@ -31,10 +31,7 @@ export const translations = {
     mission: {
       title: "关于我们",
       content:
-        "真时中文基于一个简单的理念：中文不仅是一门需要学习的语言，更是一场需要体验的旅程。我们的logo源自甲骨文中的“中”字——一面被风吹起的旗帜，线条如波浪般流动。它反映了我们的信念：语言流动、连接，并承载着人们跨越文化。",
-      approach: "我们的方法",
-      approachContent:
-        "我们不把中文当作一门学科，而是将其视为一种体验——需要去感受、使用和生活的东西。我们的一对一线上和线下课程提供个性化指导，而小班课程则建立互动和信心。季节性营地、文化工坊和城市旅行让学习者通过故事、传统和真实的相遇来探索中文。从练习声调到分享茶香，或是发现一条新街道，真时中文将学习变成了一段生动的旅程——有节奏、沉浸式、充满人性。",
+        "市面上的中文学课程几乎都在承诺让你能够\u201c流利沟通\u201d，塞给你一本几十年前的旧教材，让你机械地背诵那些现实中根本没人用的高频词，然后在你能点出一盘\u201c宫保鸡丁\u201d且没闹笑话时，给你发一朵小红花。 但我们认为，你值得更好的。\n\n在 InTime Mandarin（真时中文），我们不单单教语言，我们带你触碰真正的中国\u2014\u2014那个在语言背后、生生不息、日新月异的鲜活文化。\n\n\u201c真时\u201d，寓意\u201c真实的时刻，对的时间\u201d。 那是某个词汇让你突然心领神会的瞬间\u2014\u2014因为你真正感知到了它，而不是死记硬背了下来。 我们的课堂，从不以\u201c你好，最近怎么样？\u201d开场。我们用故事开篇： 是用历经三千年风霜的甲骨文刻线； 是丝绸之路上商贾的传奇，让你明白\u201c商\u201d字的背后，最初是一个拨弄着算盘的灵魂； 是职场上不经心的闲聊，帮你解密为什么老板话里有话、弦外有音。 因为语言从来都不是枯燥的语法规则。 语言，是流动的文化与逻辑。 时机已至，此地即是。我们热切期待你的加入。\n\n我们为那些所谓\u201c怀疑者\u201d们打造了 InTime Mandarin： 那些上了12年的周末中文班、却连自己名字都还不会写的ABC们； 给需要应对真实商务会议、而不是只会背诵课本对话的职场人们； 给希望孩子拥有真正文化的灵魂、而不仅仅只会几句中文发音的家长们； 给那些对汉字背后的世界充满好奇、渴望步入其广袤世界的语言探究者们。",
     },
     // Reach
     reach: {
@@ -124,6 +121,9 @@ export const translations = {
       title: "开始您的中文学习之旅",
       subtitle: "预约免费试课，体验专业的中文教学",
       button: "立即预约",
+      studyMode: "上课方式",
+      online: "线上",
+      offline: "线下",
     },
     // Footer
     footer: {
@@ -138,7 +138,7 @@ export const translations = {
   },
   en: {
     // Header
-    logo: "Intime Mandarin",
+    logo: "InTime Mandarin",
     logoSub: "真时中文",
     nav: {
       courses: "Courses",
@@ -168,10 +168,7 @@ export const translations = {
     mission: {
       title: "About Us",
       content:
-        "Intime Mandarin is built on a simple idea: Mandarin is not just a language to learn, but an experience to enter. Our logo draws from the oracle-bone form of “中”—a flag lifted by the wind, its lines flowing like waves. It reflects our belief that language moves, connects, and carries people across cultures.",
-      approach: "Our Approach",
-      approachContent:
-        "Instead of treating Mandarin as a subject, we approach it as an experience—something to feel, use, and live. Our one-on-one online and offline lessons provide personalized guidance, while small-group classes build interaction and confidence. Seasonal camps, cultural workshops, and city tours let learners explore Mandarin through stories, traditions, and real-life encounters. From practicing tones to sharing tea or discovering a new street, Intime Mandarin turns learning into a living journey—rhythmic, immersive, and human.",
+        'Every Mandarin program promises fluency. They hand you textbooks written decades ago, drill you on phrases no one actually says, and congratulate you when you can order "gongbao jiding" (\u5bab\u4fdd\u9e21\u4e01) without embarrassing yourself.\nWe think you deserve more.\n\nAt InTime Mandarin, we don\u2019t teach Chinese. We teach China \u2014 the living, breathing, constantly evolving culture behind the language.\n\nThe word "InTime" (\u771f\u65f6) means "the real moment, the right time." The moment when a word clicks because you felt it \u2014 not because you memorized it.\nOur classrooms don\u2019t start with "Hello, how are you?" They start with stories.\nWith the oracle bone carving of a character that has survived three millennia.\nWith the Silk Road trader who taught us that "commerce" (\u5546) was originally a man with an abacus.\nWith a kitchen conversation about why your boss said one thing but meant another entirely.\nBecause language isn\u2019t grammar rules.\nLanguage is culture and logic in motion.\nThe time is right. The place is here. We\u2019d love to have you with us.\n\nWe built InTime Mandarin for the skeptics.\nFor the ABC who sat through twelve years of Saturday school and still can\u2019t write her own name.\nFor the professional who needs Mandarin that works in real meetings, not textbook dialogues.\nFor the parent who wants her kids to feel Chinese, not just sound Chinese.\nFor the curious soul who suspects there\u2019s a whole world hiding inside these characters \u2014 and wants in.',
     },
     // Reach
     reach: {
@@ -229,7 +226,7 @@ export const translations = {
     },
     // Why Choose Us
     why: {
-      title: "Why Choose Intime Mandarin",
+      title: "Why Choose InTime Mandarin",
       certified: {
         title: "Certified Teachers",
         desc: "All teachers hold professional Chinese teaching qualifications",
@@ -261,6 +258,9 @@ export const translations = {
       title: "Start Your Chinese Learning Journey",
       subtitle: "Book a free trial class and experience professional Chinese teaching",
       button: "Book Now",
+      studyMode: "Study Mode",
+      online: "Online",
+      offline: "Offline",
     },
     // Footer
     footer: {

@@ -1,6 +1,6 @@
 "use client"
 
-import { Facebook, Instagram, Linkedin, Youtube } from "lucide-react"
+import { Facebook, Instagram, Youtube } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
 import { useTranslation } from "@/lib/i18n"
 import Image from "next/image"
@@ -15,22 +15,13 @@ export function Footer() {
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           {/* Logo and Description */}
           <div className="md:col-span-2">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0">
-                  <Image
-                    src="/logo.png"
-                    alt="Intime Mandarin Logo"
-                    width={48}
-                    height={48}
-                    className="w-full h-full object-cover"
-                  />
-              </div>
-              <div className="flex flex-col items-center leading-none">
-                <div className="text-white font-bold text-base leading-none text-center">Intime</div>
-                <div className="text-white font-bold text-base leading-none -mt-1 text-center">Mandarin</div>
-                <div className="text-orange text-[10px] font-medium tracking-wide text-center">真｜时｜中｜文</div>
-              </div>
-            </div>
+            <a href="/" className="flex items-center gap-3 mb-4">
+              <img
+                src="/images/真时汉语_画板 1.png"
+                alt="真时汉语 InTime Mandarin"
+                className="h-20 w-auto brightness-0 invert"
+              />
+            </a>
             <p className="text-white/70 max-w-md leading-relaxed">{t.footer.description}</p>
           </div>
 
@@ -66,30 +57,11 @@ export function Footer() {
             <h4 className="font-bold text-lg mb-4">{t.footer.followUs}</h4>
             <div className="flex flex-wrap gap-3">
               <a
-                href="#"
-                className="w-10 h-10 rounded-full bg-white/10 hover:opacity-80 flex items-center justify-center transition-opacity"
-                title="Instagram"
-              >
-                <Instagram className="w-5 h-5 text-[#E4405F]" />
-              </a>
-              <a
-                href="#"
-                className="w-10 h-10 rounded-full bg-white/10 hover:opacity-80 flex items-center justify-center transition-opacity"
-                title="LinkedIn"
-              >
-                <Linkedin className="w-5 h-5 text-[#0A66C2]" />
-              </a>
-              <a
-                href="#"
-                className="w-10 h-10 rounded-full bg-white/10 hover:opacity-80 flex items-center justify-center transition-opacity"
-                title="YouTube"
-              >
-                <Youtube className="w-5 h-5 text-[#FF0000]" />
-              </a>
-              <a
-                href="#"
+                href="https://www.xiaohongshu.com/user/profile/6472a466000000001f004ded"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 rounded-lg overflow-hidden hover:opacity-80 flex items-center justify-center transition-opacity"
-                title="小红书"
+                title="小红书 (7430739918)"
               >
                 <Image
                   src="/images/xiaohongshu-logo.png"
@@ -100,7 +72,9 @@ export function Footer() {
                 />
               </a>
               <a
-                href="#"
+                href="https://www.tiktok.com/@intimemandarin"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-white/10 hover:opacity-80 flex items-center justify-center transition-opacity"
                 title="TikTok"
               >
@@ -116,7 +90,38 @@ export function Footer() {
                 </svg>
               </a>
               <a
-                href="#"
+                href="https://www.instagram.com/intimemandarin/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-white/10 hover:opacity-80 flex items-center justify-center transition-opacity"
+                title="Instagram"
+              >
+                <Instagram className="w-5 h-5 text-[#E4405F]" />
+              </a>
+              <a
+                href="https://youtube.com/@intimemandarin?si=o99QE2AZBcivt6vA"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-white/10 hover:opacity-80 flex items-center justify-center transition-opacity"
+                title="YouTube @InTimeMandarin"
+              >
+                <Youtube className="w-5 h-5 text-[#FF0000]" />
+              </a>
+              <a
+                href="https://x.com/InTimeMandarin"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-white/10 hover:opacity-80 flex items-center justify-center transition-opacity"
+                title="X (Twitter)"
+              >
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+              </a>
+              <a
+                href="https://www.facebook.com/share/1GVQC4Fwxp/?mibextid=wwXIfr"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-white/10 hover:opacity-80 flex items-center justify-center transition-opacity"
                 title="Facebook"
               >

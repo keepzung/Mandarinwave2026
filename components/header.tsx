@@ -6,7 +6,6 @@ import { useState } from "react"
 import { useLanguage } from "@/lib/language-context"
 import { useTranslation } from "@/lib/i18n"
 import { useAuth } from "@/lib/auth-context"
-import Image from "next/image"
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -61,14 +60,13 @@ export function Header() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <div className="flex items-center gap-3">
-            <Image src="/logo.png" alt="Intime Mandarin Logo" width={64} height={64} className="w-16 h-16" />
-            <div className="flex flex-col items-center text-center leading-none">
-              <div className="text-black font-bold text-base leading-none">Intime</div>
-              <div className="text-black font-bold text-base leading-none -mt-1">Mandarin</div>
-              <div className="text-orange text-[10px] font-medium tracking-wide">真｜时｜中｜文</div>
-            </div>
-          </div>
+          <a href="/" className="flex items-center gap-3 flex-shrink-0">
+            <img
+              src="/images/真时汉语_画板 1.png"
+              alt="真时汉语 InTime Mandarin"
+              className="h-52 w-auto"
+            />
+          </a>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-8">

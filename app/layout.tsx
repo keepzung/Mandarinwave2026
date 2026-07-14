@@ -14,7 +14,7 @@ const _notoSansSC = Noto_Sans_SC({
 })
 
 export const metadata: Metadata = {
-  title: "Intime Mandarin 真时中文 - Professional Chinese Language Education",
+  title: "InTime Mandarin 真时中文 - Professional Chinese Language Education",
   description:
     "Professional online and offline Chinese education platform providing personalized learning experiences for global learners. 专业的线上线下中文教育平台，为全球学习者提供个性化学习体验。",
   generator: "v0.app",

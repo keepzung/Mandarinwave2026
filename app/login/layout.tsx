@@ -2,7 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Login - Intime Mandarin",
+  title: "Login - InTime Mandarin",
   icons: {
     icon: "/favicon.ico",
   },
