@@ -99,6 +99,9 @@ export function Header() {
             <a href="#reviews" className="text-gray-700 hover:text-orange transition-colors font-medium">
               {t.nav.reviews}
             </a>
+            <a href="/news" className="text-gray-700 hover:text-orange transition-colors font-medium">
+              {t.nav.news}
+            </a>
             <a href="#contact" className="text-gray-700 hover:text-orange transition-colors font-medium">
               {t.nav.contact}
             </a>
@@ -248,6 +251,9 @@ export function Header() {
               </a>
               <a href="#reviews" className="text-gray-700 hover:text-orange transition-colors py-2 font-medium">
                 {t.nav.reviews}
+              </a>
+              <a href="/news" className="text-gray-700 hover:text-orange transition-colors py-2 font-medium">
+                {t.nav.news}
               </a>
               <a href="#contact" className="text-gray-700 hover:text-orange transition-colors py-2 font-medium">
                 {t.nav.contact}

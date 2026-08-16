@@ -79,7 +79,7 @@ CREATE POLICY "Admins can manage teachers" ON public.teachers
 
 -- Insert some sample teachers
 INSERT INTO public.teachers (name, email, specialties, is_active) VALUES
-    ('李老师', 'teacher.li@intimemandarin.com', ARRAY['HSK', 'Business Chinese'], true),
-    ('王老师', 'teacher.wang@intimemandarin.com', ARRAY['Kids Chinese', 'Culture'], true),
-    ('张老师', 'teacher.zhang@intimemandarin.com', ARRAY['One-on-One', 'Conversation'], true)
+    ('李老师', 'teacher.li@zszculture.cn', ARRAY['HSK', 'Business Chinese'], true),
+    ('王老师', 'teacher.wang@zszculture.cn', ARRAY['Kids Chinese', 'Culture'], true),
+    ('张老师', 'teacher.zhang@zszculture.cn', ARRAY['One-on-One', 'Conversation'], true)
 ON CONFLICT (email) DO NOTHING;

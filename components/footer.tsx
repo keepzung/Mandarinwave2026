@@ -1,6 +1,7 @@
 "use client"
 
-import { Facebook, Instagram, Youtube } from "lucide-react"
+import { Facebook, Instagram, Mail, MapPin, Phone, Youtube } from "lucide-react"
+import { useState } from "react"
 import { useLanguage } from "@/lib/language-context"
 import { useTranslation } from "@/lib/i18n"
 import Image from "next/image"
@@ -8,11 +9,12 @@ import Image from "next/image"
 export function Footer() {
   const { language } = useLanguage()
   const t = useTranslation(language)
+  const [qrError, setQrError] = useState(false)
 
   return (
     <footer className="bg-black text-white py-12">
       <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-4 gap-8 mb-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8 mb-8">
           {/* Logo and Description */}
           <div className="md:col-span-2">
             <a href="/" className="flex items-center gap-3 mb-4">
@@ -127,6 +129,46 @@ export function Footer() {
               >
                 <Facebook className="w-5 h-5 text-[#1877F2]" />
               </a>
+            </div>
+          </div>
+
+          {/* Contact Info */}
+          <div>
+            <h4 className="font-bold text-lg mb-4">{t.footer.contactTitle}</h4>
+            <ul className="space-y-3">
+              <li className="flex items-start gap-2 text-white/70">
+                <MapPin className="w-5 h-5 mt-1 flex-shrink-0 text-orange" />
+                <span className="leading-relaxed">{t.footer.address}</span>
+              </li>
+              <li className="flex items-center gap-2 text-white/70">
+                <Phone className="w-5 h-5 flex-shrink-0 text-orange" />
+                <span>+86 15701696836</span>
+              </li>
+              <li className="flex items-center gap-2 text-white/70">
+                <Mail className="w-5 h-5 flex-shrink-0 text-orange" />
+                <span>info@zszculture.cn</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* WeChat QR */}
+          <div>
+            <h4 className="font-bold text-lg mb-4">{t.footer.wechatLabel}</h4>
+            <div className="w-28 h-28 rounded-lg overflow-hidden bg-white flex items-center justify-center">
+              {qrError ? (
+                <span className="text-gray-400 text-xs text-center leading-relaxed px-2">
+                  {language === "zh" ? "微信二维码" : "WeChat QR"}
+                  <br />
+                  <span className="text-[10px]">wechat-qr.png</span>
+                </span>
+              ) : (
+                <img
+                  src="/images/wechat-qr.png"
+                  alt={language === "zh" ? "官方微信二维码" : "Official WeChat QR code"}
+                  className="w-full h-full object-cover"
+                  onError={() => setQrError(true)}
+                />
+              )}
             </div>
           </div>
         </div>

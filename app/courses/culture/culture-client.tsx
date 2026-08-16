@@ -258,7 +258,7 @@ export default function CultureClientPage() {
               </div>
               <div className="flex items-center gap-3 bg-white/10 rounded-lg px-6 py-3">
                 <Mail className="w-6 h-6" />
-                <span className="text-lg font-medium">info@intimemandarin.com</span>
+                <span className="text-lg font-medium">info@zszculture.cn</span>
               </div>
             </div>
 
